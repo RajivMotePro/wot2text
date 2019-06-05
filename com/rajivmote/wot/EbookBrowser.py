@@ -27,14 +27,14 @@ class EbookBrowser:
                 items = list.findall('{http://www.w3.org/1999/xhtml}li')
                 for item in items:
                     book_node = item.find('{http://www.w3.org/1999/xhtml}a')
-                    book = { 'number' : book_num, 'title' : book_node.text, 'chapters' : [] }
+                    book = { 'number' : book_num, 'title' : book_node.text.replace('\u2019', "'"), 'chapters' : [] }
                     chapter_list = item.find('{http://www.w3.org/1999/xhtml}ol')
                     if (chapter_list):
                         chapter_nodes = chapter_list.findall('{http://www.w3.org/1999/xhtml}li')
                         last_chapter_num = -1
                         for chapter_node in chapter_nodes:
                             ch = chapter_node.find('{http://www.w3.org/1999/xhtml}a')
-                            chapter_title = ch.text
+                            chapter_title = ch.text.replace('\u2019', "'")
                             chapter_file = os.path.join(out_dir, ch.get('href'))
                             # parse out chapter number
                             ch_num_str = chapter_title.partition(' ')[0].partition('.')[0]
@@ -52,12 +52,23 @@ class EbookBrowser:
                         book_num = book_num + 1
         return books
 
+
     def print_books(self, books):
         for book in books:
             print(book.get('number'), book.get('title'))
+            try:
+                book_title = book.get('title')
+                book_title.encode('ascii')
+            except UnicodeEncodeError as err:
+                print('\t', err)
             chapters = book.get('chapters')
             for chapter in chapters:
                 print('\t', chapter.get('number'), chapter.get('title'), chapter.get('file'))
+                chapter_name = chapter.get('title')
+                try:
+                    chapter_name.encode('ascii')
+                except UnicodeEncodeError as err:
+                    print('\t', '\t', err, err.start, err.end)
 
 def main():
     if len(sys.argv) > 1:

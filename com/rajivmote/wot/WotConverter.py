@@ -23,10 +23,12 @@ class WotConverter:
         for book in books:
             chapters = book.get('chapters')
             for chapter in chapters:
-                chapter_text = cc.convert_chapter(chapter.get('file'))
-                chapter_filename = "WoT-Book{:02d}Chapter{:02d}.txt".format(book.get('number'), chapter.get('number'))
-                chapter_filename = os.path.join(out_dir, chapter_filename)
-                with open(chapter_filename, 'w') as chapter_file:
+                in_chapter_filename = chapter.get('file').partition('#')[0]
+
+                chapter_text = cc.convert_chapter(in_chapter_filename)
+                out_chapter_filename = "WoT-Book{:02d}Chapter{:02d}.txt".format(book.get('number'), chapter.get('number'))
+                out_chapter_filename = os.path.join(out_dir, out_chapter_filename)
+                with open(out_chapter_filename, 'w') as chapter_file:
                     chapter_file.write(chapter_text + '\n')
 
 def main():

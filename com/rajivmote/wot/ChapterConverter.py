@@ -6,6 +6,10 @@ from com.rajivmote.wot.AsciiNormalizer import AsciiNormalizer
 class ChapterConverter:
 
     def convert_chapter(self, chapter_filename):
+        #TODO Get chapter number
+        #TODO Get chapter title
+        #TODO Get chapter icon_file
+        #Get chapter text
         content = ""
         with open(chapter_filename, "r") as in_file:
             content = in_file.read()

@@ -18,6 +18,14 @@ class AsciiNormalizer:
                     s = s.replace(non_ascii, '"')
                 elif non_ascii == '\u201d':
                     s = s.replace(non_ascii, '"')
+                elif non_ascii == '\u2026':
+                    s = s.replace(non_ascii, '...')
+                elif non_ascii == '\u2018':
+                    s = s.replace(non_ascii, "'")
+                elif non_ascii == '\u2013':
+                    s = s.replace(non_ascii, '-')
+                elif non_ascii == '\xe7':
+                    s = s.replace(non_ascii, 'c')
                 else:
                     print("NON-ASCII:", non_ascii, err)
                     s = s.replace(non_ascii, ' ')

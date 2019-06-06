@@ -8,17 +8,11 @@ class EbookBrowser:
     out_dir = "./"
     chapter_dir = os.path.join(out_dir, "TEXT")
 
-    def browse_ebook(self, in_filename):
+    def browse_ebook(self, toc_filename):
         books = []
-        #Unzip in_filename to temporary directory
-        out_dir = in_filename + "_temp"
-        if not os.path.exists(out_dir):
-            os.makedirs(out_dir)
-        with zipfile.ZipFile(in_filename, 'r') as zip_ref:
-            zip_ref.extractall(out_dir)
+        out_dir = os.path.dirname(toc_filename)
         #Read the Table of Contents file
-        toc_file_name = os.path.join(out_dir, "nav.xhtml")
-        with open(toc_file_name, "r") as toc_file:
+        with open(toc_filename, "r") as toc_file:
             root = xml.etree.ElementTree.parse(toc_file).getroot()
             root = root.find('./{http://www.w3.org/1999/xhtml}body/{http://www.w3.org/1999/xhtml}nav')
             lists = root.findall('{http://www.w3.org/1999/xhtml}ol')

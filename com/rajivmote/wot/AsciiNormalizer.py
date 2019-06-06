@@ -11,7 +11,8 @@ class AsciiNormalizer:
                 if non_ascii == '\u2019':
                     s = s.replace(non_ascii, "'")
                 elif non_ascii == '\xa0':
-                    s = s.replace(non_ascii, '...')
+                    s = s.replace(non_ascii, '')
                 else:
+                    print("NON-ASCII:", non_ascii, err)
                     s = s.replace(non_ascii, ' ')
         return s

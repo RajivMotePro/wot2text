@@ -1,8 +1,8 @@
-import sys
 import os
-import zipfile
+import sys
 import xml.etree.ElementTree
-
+import zipfile
+from com.rajivmote.wot.AsciiNormalizer import AsciiNormalizer
 
 class EbookBrowser:
     out_dir = "./"
@@ -27,14 +27,14 @@ class EbookBrowser:
                 items = list.findall('{http://www.w3.org/1999/xhtml}li')
                 for item in items:
                     book_node = item.find('{http://www.w3.org/1999/xhtml}a')
-                    book = { 'number' : book_num, 'title' : book_node.text.replace('\u2019', "'"), 'chapters' : [] }
+                    book = { 'number': book_num, 'title': AsciiNormalizer.to_ascii(book_node.text), 'chapters': [] }
                     chapter_list = item.find('{http://www.w3.org/1999/xhtml}ol')
                     if (chapter_list):
                         chapter_nodes = chapter_list.findall('{http://www.w3.org/1999/xhtml}li')
                         last_chapter_num = -1
                         for chapter_node in chapter_nodes:
                             ch = chapter_node.find('{http://www.w3.org/1999/xhtml}a')
-                            chapter_title = ch.text.replace('\u2019', "'")
+                            chapter_title = AsciiNormalizer.to_ascii(ch.text)
                             chapter_file = os.path.join(out_dir, ch.get('href'))
                             # parse out chapter number
                             ch_num_str = chapter_title.partition(' ')[0].partition('.')[0]

@@ -76,7 +76,6 @@ def main():
         eb = EbookBrowser()
         books = eb.browse_ebook(file_name)
         eb.print_books(books)
-        print("Browsed.")
     else:
         print("No filename specified")
 

@@ -12,6 +12,12 @@ class AsciiNormalizer:
                     s = s.replace(non_ascii, "'")
                 elif non_ascii == '\xa0':
                     s = s.replace(non_ascii, '')
+                elif non_ascii == '\u2014':
+                    s = s.replace(non_ascii, '--')
+                elif non_ascii == '\u201c':
+                    s = s.replace(non_ascii, '"')
+                elif non_ascii == '\u201d':
+                    s = s.replace(non_ascii, '"')
                 else:
                     print("NON-ASCII:", non_ascii, err)
                     s = s.replace(non_ascii, ' ')

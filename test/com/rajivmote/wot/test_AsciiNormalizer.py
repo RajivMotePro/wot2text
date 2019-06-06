@@ -15,6 +15,16 @@ class TestAsciiNormalizer(unittest.TestCase):
         result = AsciiNormalizer.to_ascii(s)
         self.assertEqual("Something... Strange", result)
 
+    def test_EMDash(self):
+        s = "It was the best\u2014and worst\u2014of times."
+        result = AsciiNormalizer.to_ascii(s)
+        self.assertEqual("It was the best--and worst--of times.", result)
+
+    def test_DoubleQuotes(self):
+        s = "He blinked. \u201cIt is nothing,\u201d he said."
+        result = AsciiNormalizer.to_ascii(s)
+        self.assertEqual('He blinked. "It is nothing," he said.', result)
+
 if __name__ == '__main__':
     unittest.main()
 

@@ -1,7 +1,6 @@
 import os
 import sys
 import xml.etree.ElementTree
-import zipfile
 from com.rajivmote.wot.AsciiNormalizer import AsciiNormalizer
 
 class EbookBrowser:
